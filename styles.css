@@ -1,0 +1,68 @@
+/* General Styles */
+body {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #333;
+    perspective: 1000px;
+  }
+  
+  /* Container for all cubes */
+  #cubes-container {
+    display: grid;
+    grid-template-columns: repeat(5, 160px); /* Arrange cubes in a grid */
+    grid-gap: 20px; /* Add spacing between cubes */
+    justify-content: center;
+    align-items: center;
+    transform-style: preserve-3d;
+  }
+  
+  /* Individual Cube Containers */
+  .cube-container {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    transform-style: preserve-3d;
+    transform: rotateX(-30deg) rotateY(-45deg);
+    transition: transform 0.1s ease; /* Smooth transitions for rotations */
+  }
+  
+  /* Individual Cube Pieces */
+  .cube-piece {
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    transform-style: preserve-3d; /* Ensure child elements are rendered in 3D */
+  }
+  
+  /* Faces of Each Piece */
+  .face {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border: 1px solid #000;
+    box-sizing: border-box;
+  }
+  
+  /* Positioning Each Face */
+  .front { transform: translateZ(12.5px); }
+  .back { transform: rotateY(180deg) translateZ(12.5px); }
+  .left { transform: rotateY(-90deg) translateZ(12.5px); }
+  .right { transform: rotateY(90deg) translateZ(12.5px); }
+  .top { transform: rotateX(90deg) translateZ(12.5px); }
+  .bottom { transform: rotateX(-90deg) translateZ(12.5px); }
+  
+  /* Default Patterns for Each Face */
+  .front .face { background: repeating-linear-gradient(45deg, red, red 5px, white 5px, white 10px); }
+  .back .face { background: repeating-linear-gradient(45deg, orange, orange 5px, white 5px, white 10px); }
+  .left .face { background: repeating-linear-gradient(45deg, green, green 5px, white 5px, white 10px); }
+  .right .face { background: repeating-linear-gradient(45deg, blue, blue 5px, white 5px, white 10px); }
+  .top .face { background: repeating-linear-gradient(45deg, white, white 5px, black 5px, black 10px); }
+  .bottom .face { background: repeating-linear-gradient(45deg, yellow, yellow 5px, black 5px, black 10px); }
+  
+  /* Example Pattern Classes */
+  .pattern-checkerboard { background: repeating-conic-gradient(black 0% 25%, white 0% 50%); }
+  .pattern-stripes { background: repeating-linear-gradient(45deg, cyan, cyan 5px, magenta 5px, magenta 10px); }
+  .pattern-dots { background: radial-gradient(circle, black 10%, transparent 10%); }
