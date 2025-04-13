@@ -1,8 +1,9 @@
 // Constants for cube dimensions
 const SIZE = 4; // 4x4x4 cube
 const PIECE_SIZE = 25; // Smaller size for each cube piece
+const NUM_CUBES = 11; // Total number of cubes to display
 
-// Create the cube dynamically
+// Create a single cube dynamically
 function createCube(container) {
   for (let x = 0; x < SIZE; x++) {
     for (let y = 0; y < SIZE; y++) {
@@ -41,17 +42,53 @@ function createCube(container) {
   }
 }
 
-// Populate the color dropdown with options, including black
+// Create multiple cubes and labels
+function createCubes() {
+  const cubesContainer = document.getElementById('cubes-container');
+  const labelsContainer = document.createElement('div');
+  labelsContainer.classList.add('labels-container');
+  document.body.appendChild(labelsContainer);
+
+  const cubeSelect = document.getElementById('cube-select');
+
+  for (let i = 0; i < NUM_CUBES; i++) {
+    // Create cube container
+    const cubeContainer = document.createElement('div');
+    cubeContainer.classList.add('cube-container');
+    cubeContainer.dataset.cubeId = i; // Assign a unique ID to each cube
+    cubesContainer.appendChild(cubeContainer);
+
+    // Create the pieces for this cube
+    createCube(cubeContainer);
+
+    // Add cube to the dropdown
+    const option = document.createElement('option');
+    option.value = i;
+    option.textContent = `Cube ${i + 1}`;
+    cubeSelect.appendChild(option);
+
+    // Create label for this cube
+    const label = document.createElement('div');
+    label.classList.add('cube-label');
+    label.textContent = `Cube ${i + 1}`;
+
+    // Add click event to select the cube
+    label.addEventListener('click', () => {
+      cubeSelect.value = i; // Select the corresponding cube in the dropdown
+    });
+
+    labelsContainer.appendChild(label);
+  }
+}
+
+// Populate the color dropdown with options, ensuring no duplicates
 document.addEventListener('DOMContentLoaded', () => {
   const colorSelect = document.getElementById('color-select');
 
   // Check if the dropdown is already populated
   if (colorSelect.children.length > 0) return;
 
-  // Define the list of colors, including "Black"
   const colors = ['red', 'blue', 'green', 'white', 'yellow', 'orange', 'black'];
-
-  // Add each color as an option
   colors.forEach(color => {
     const option = document.createElement('option');
     option.value = color;
@@ -96,6 +133,5 @@ document.addEventListener('mousedown', (event) => {
   }
 });
 
-// Initialize the cube
-const cubeContainer = document.getElementById('cube-container');
-createCube(cubeContainer);
+// Initialize the cubes
+createCubes();

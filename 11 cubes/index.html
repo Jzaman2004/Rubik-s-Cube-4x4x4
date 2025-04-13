@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Customizable Rubik's Cubes</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="controls">
+    <label for="cube-select">Select Cube:</label>
+    <select id="cube-select"></select>
+
+    <label for="color-select">Select Color:</label>
+    <select id="color-select">
+      <option value="red">Red</option>
+      <option value="blue">Blue</option>
+      <option value="green">Green</option>
+      <option value="white">White</option>
+      <option value="yellow">Yellow</option>
+      <option value="orange">Orange</option>
+    </select>
+  </div>
+
+  <div id="cubes-container"></div>
+  <script src="script.js"></script>
+</body>
+</html>
