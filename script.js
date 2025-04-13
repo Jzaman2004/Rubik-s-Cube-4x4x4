@@ -24,10 +24,14 @@ function createCube(container) {
           const faceElement = document.createElement('div');
           faceElement.classList.add('face', face);
 
-          // Assign random patterns to each face
-          const patterns = ['pattern-checkerboard', 'pattern-stripes', 'pattern-dots'];
-          const randomPattern = patterns[Math.floor(Math.random() * patterns.length)];
-          faceElement.classList.add(randomPattern);
+          // Set initial color to black
+          faceElement.style.backgroundColor = 'black';
+
+          // Add click event to change color
+          faceElement.addEventListener('click', () => {
+            const selectedColor = document.getElementById('color-select').value;
+            faceElement.style.backgroundColor = selectedColor;
+          });
 
           piece.appendChild(faceElement);
         });
@@ -38,19 +42,60 @@ function createCube(container) {
   }
 }
 
-// Create multiple cubes
+// Create multiple cubes and labels
 function createCubes() {
   const cubesContainer = document.getElementById('cubes-container');
+  const labelsContainer = document.createElement('div');
+  labelsContainer.classList.add('labels-container');
+  document.body.appendChild(labelsContainer);
+
+  const cubeSelect = document.getElementById('cube-select');
 
   for (let i = 0; i < NUM_CUBES; i++) {
+    // Create cube container
     const cubeContainer = document.createElement('div');
     cubeContainer.classList.add('cube-container');
+    cubeContainer.dataset.cubeId = i; // Assign a unique ID to each cube
     cubesContainer.appendChild(cubeContainer);
 
     // Create the pieces for this cube
     createCube(cubeContainer);
+
+    // Add cube to the dropdown
+    const option = document.createElement('option');
+    option.value = i;
+    option.textContent = `Cube ${i + 1}`;
+    cubeSelect.appendChild(option);
+
+    // Create label for this cube
+    const label = document.createElement('div');
+    label.classList.add('cube-label');
+    label.textContent = `Cube ${i + 1}`;
+
+    // Add click event to select the cube
+    label.addEventListener('click', () => {
+      cubeSelect.value = i; // Select the corresponding cube in the dropdown
+    });
+
+    labelsContainer.appendChild(label);
   }
 }
+
+// Populate the color dropdown with options, ensuring no duplicates
+document.addEventListener('DOMContentLoaded', () => {
+  const colorSelect = document.getElementById('color-select');
+
+  // Check if the dropdown is already populated
+  if (colorSelect.children.length > 0) return;
+
+  const colors = ['red', 'blue', 'green', 'white', 'yellow', 'orange', 'black'];
+  colors.forEach(color => {
+    const option = document.createElement('option');
+    option.value = color;
+    option.textContent = color.charAt(0).toUpperCase() + color.slice(1); // Capitalize first letter
+    colorSelect.appendChild(option);
+  });
+});
 
 // Handle mouse events for dragging
 document.addEventListener('mousedown', (event) => {

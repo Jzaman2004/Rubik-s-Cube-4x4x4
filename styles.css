@@ -6,7 +6,27 @@ body {
     align-items: center;
     height: 100vh;
     background-color: #333;
-    perspective: 1000px;
+    perspective: 1000px; /* Ensure 3D perspective */
+  }
+  
+  /* Controls Section */
+  #controls {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  #controls label {
+    margin-right: 10px;
+  }
+  
+  #controls select {
+    padding: 5px;
+    margin-right: 10px;
   }
   
   /* Container for all cubes */
@@ -17,6 +37,7 @@ body {
     justify-content: center;
     align-items: center;
     transform-style: preserve-3d;
+    margin-top: 100px; /* Move cubes down to avoid collision with controls */
   }
   
   /* Individual Cube Containers */
@@ -24,8 +45,8 @@ body {
     position: relative;
     width: 150px;
     height: 150px;
-    transform-style: preserve-3d;
-    transform: rotateX(-30deg) rotateY(-45deg);
+    transform-style: preserve-3d; /* Ensure child elements are rendered in 3D */
+    transform: rotateX(-30deg) rotateY(-45deg); /* Initial rotation */
     transition: transform 0.1s ease; /* Smooth transitions for rotations */
   }
   
@@ -35,6 +56,7 @@ body {
     width: 25px;
     height: 25px;
     transform-style: preserve-3d; /* Ensure child elements are rendered in 3D */
+    border: 1px solid #fff; /* White outline around each piece */
   }
   
   /* Faces of Each Piece */
@@ -42,8 +64,10 @@ body {
     position: absolute;
     width: 100%;
     height: 100%;
-    border: 1px solid #000;
+    background-color: black; /* Default color is now black */
+    border: 1px solid #fff; /* White outline around each face */
     box-sizing: border-box;
+    cursor: pointer; /* Indicate clickable areas */
   }
   
   /* Positioning Each Face */
@@ -54,15 +78,23 @@ body {
   .top { transform: rotateX(90deg) translateZ(12.5px); }
   .bottom { transform: rotateX(-90deg) translateZ(12.5px); }
   
-  /* Default Patterns for Each Face */
-  .front .face { background: repeating-linear-gradient(45deg, red, red 5px, white 5px, white 10px); }
-  .back .face { background: repeating-linear-gradient(45deg, orange, orange 5px, white 5px, white 10px); }
-  .left .face { background: repeating-linear-gradient(45deg, green, green 5px, white 5px, white 10px); }
-  .right .face { background: repeating-linear-gradient(45deg, blue, blue 5px, white 5px, white 10px); }
-  .top .face { background: repeating-linear-gradient(45deg, white, white 5px, black 5px, black 10px); }
-  .bottom .face { background: repeating-linear-gradient(45deg, yellow, yellow 5px, black 5px, black 10px); }
+  /* Labels Container */
+  .labels-container {
+    position: absolute;
+    bottom: 20px; /* Fixed position at the bottom of the screen */
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 20px; /* Space between labels */
+    justify-content: center;
+    align-items: center;
+  }
   
-  /* Example Pattern Classes */
-  .pattern-checkerboard { background: repeating-conic-gradient(black 0% 25%, white 0% 50%); }
-  .pattern-stripes { background: repeating-linear-gradient(45deg, cyan, cyan 5px, magenta 5px, magenta 10px); }
-  .pattern-dots { background: radial-gradient(circle, black 10%, transparent 10%); }
+  /* Cube Label */
+  .cube-label {
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px black;
+    cursor: pointer; /* Indicate clickable labels */
+  }
